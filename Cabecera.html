@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Compiladores - Resumen</title>
+</head>
+<body>
+    <header>
+        <h1>Compiladores: Resumen</h1>
+    </header>
+    <main>
+        <section id="introduction">
+            <h2>¿Qué es un compilador?</h2>
+            <p>Un compilador es un tipo de software que se encarga de transformar el código fuente escrito en un lenguaje de programación de alto 
+            nivel en un código ejecutable en lenguaje de bajo nivel o lenguaje máquina, que una computadora puede entender y ejecutar directamente. Su función principal es traducir el código legible por humanos en instrucciones comprensibles por la máquina.
+            El proceso de compilación se realiza en varias etapas, cada una realizada por un componente específico del compilador. Estas etapas 
+            incluyen:
+            </p>
+        </section>
+        <section id="components">
+            <h2>Componentes de un compilador</h2>
+            <img src="giphy.gif" alt="Gif"  width="200" height="200">
+            <ul>
+                <li><a href="#lexical-analyzer">Analizador léxico</a></li>
+                <li><a href="#syntax-analyzer">Analizador sintáctico</a></li>
+                <li><a href="#semantic-analyzer">Analizador semántico</a></li>
+                <li><a href="#intermediate-code-generator">Generador de código intermedio</a></li>
+                <li><a href="#code-optimizer">Optimizador de código</a></li>
+                <li><a href="#object-code-generator">Generador de código objeto</a></li>
+            </ul>
+        </section>
+        
+        <!-- Analizador Léxico -->
+        <section id="lexical-analyzer">
+            <h3>¿Qué es un Analizador Léxico?</h3>
+            <p>Un analizador léxico, también conocido como escáner, es el componente encargado de descomponer el código fuente en una secuencia de tokens. 
+            Los tokens son las unidades léxicas mínimas, como palabras clave, identificadores, constantes numéricas o literales de cadena, que constituyen la base de la sintaxis de un lenguaje de programación. 
+            El analizador léxico identifica estos tokens a partir del flujo continuo de caracteres del código fuente, omitiendo espacios en blanco y comentarios.
+            </p>
+            <!-- Detalles adicionales sobre el analizador léxico -->
+            <h4>Funcionamiento interno</h4>
+            <p>El proceso de análisis léxico implica la creación de un autómata finito determinista (DFA) o un autómata finito no determinista (NFA) para reconocer patrones léxicos en el código fuente. 
+            Se definen reglas específicas en forma de expresiones regulares para cada tipo de token. 
+            Estas expresiones describen patrones como números enteros, identificadores válidos, operadores, etc. 
+            El analizador léxico aplica estas expresiones regulares para escanear el código fuente y detectar la presencia de tokens.
+            </p>
+            <div class="image-container">
+                <figure>
+                    <img src="automata.png" alt="Representación formal de un autómata"  class="centered-image">
+                    <figcaption>Representación formal de un autómata</figcaption>
+                </figure>
+            </div>
+            <h4>Importancia en el Proceso de Compilación</h4>
+            <p>El analizador léxico es la puerta de entrada al proceso de compilación. 
+            Su función trasciende más allá de la simple segmentación del código fuente en tokens; proporciona la base necesaria para el análisis sintáctico subsiguiente. 
+            Los tokens generados por el analizador léxico se utilizan en el análisis sintáctico para construir el árbol de análisis sintáctico, 
+            que representa la estructura jerárquica y las relaciones entre las diversas construcciones del lenguaje de programación.
+            </p>
+            <h4>Relación con el Análisis Sintáctico</h4>
+            <p>El análisis sintáctico, que sigue al análisis léxico, se basa en gran medida en los tokens generados por el analizador léxico. 
+            Los tokens actúan como bloques de construcción en la formación de la estructura gramatical del programa. 
+            El analizador sintáctico utiliza reglas gramaticales para determinar si la secuencia de tokens sigue la sintaxis correcta del lenguaje. 
+            Si se encuentra un error, se genera un mensaje de error que indica dónde se viola la gramática.
+            </p>
+            <h4>Optimización y Eficiencia</h4>
+            <p>En la implementación de un analizador léxico, la eficiencia es esencial. Técnicas como la tabla de transición y el uso de generadores automáticos de analizadores léxicos contribuyen a una mayor velocidad y precisión en el proceso de análisis. 
+            Además, la optimización en la generación de tokens puede afectar el rendimiento general del compilador.
+            </p>
+            <h4>Conclusión</h4>
+            <p>El análisis léxico, aunque puede parecer un primer paso modesto en el proceso de compilación, es fundamental para el éxito del proceso en su conjunto. 
+            Su capacidad para identificar y generar tokens precisos sienta las bases para las fases posteriores del proceso de traducción. 
+            Al comprender la importancia del analizador léxico, los programadores y desarrolladores pueden mejorar la eficiencia y la precisión de sus compiladores, 
+            lo que finalmente contribuye a la creación de software de mayor calidad y rendimiento.
+            </p>
+        </section>
+        
+        <!-- Analizador Sintáctico -->
+        <section id="syntax-analyzer">
+            <h3>Analizador sintáctico</h3>
+            <p>El analizador sintáctico verifica si la estructura del código cumple con las reglas de la gramática del lenguaje de programación.
+            Dentro del intrigante mundo de los compiladores, el analizador sintáctico se destaca como el arquitecto de la estructura interna del código fuente. 
+            En este emocionante recorrido, profundizaremos en la esencia del analizador sintáctico, su papel vital en el proceso de compilación y su relación con el análisis léxico y semántico.
+            </p>
+            <!-- Detalles adicionales sobre el analizador sintáctico -->
+            <h4>Desentrañando el Analizador Sintactico</h4>
+            <p>El analizador sintáctico, también conocido como parser, es el componente encargado de validar y estructurar la secuencia de tokens 
+            generados por el analizador léxico. Su objetivo es garantizar que el código fuente se ajuste a las reglas gramaticales del lenguaje 
+            de programación en uso. En esencia, el analizador sintáctico establece la estructura jerárquica del programa, 
+            representada a menudo mediante un árbol de análisis sintáctico.
+            </p>
+            <h4>Funcionamiento Interno</h4>
+            <p>El proceso de análisis sintáctico implica el uso de gramáticas formales, como gramáticas libres de contexto (GLC) o gramáticas 
+            de atributos, para definir las reglas sintácticas del lenguaje. Estas gramáticas describen la estructura del programa en términos de no terminales y terminales. 
+            Los no terminales representan construcciones complejas que se descomponen en términos más simples, 
+            mientras que los terminales son los tokens generados por el analizador léxico.
+            </p>
+            <h4>Importancia en el Proceso de Compilación</h4>
+            <p>El analizador sintáctico desempeña un papel crucial en el proceso de compilación, ya que verifica si el código fuente sigue las reglas sintácticas del lenguaje. 
+            Además, transforma la secuencia lineal de tokens en una estructura jerárquica, como un árbol de análisis sintáctico. 
+            Este árbol refleja las relaciones entre las diferentes construcciones del programa y sirve como base para las fases posteriores del proceso de compilación.  
+            </p>
+            <div class="image-container">
+                <figure>
+                    <img src="analizadorSintactico.jpg" alt="ArbolSintaxis"  class="centered-image">
+                    <figcaption>Árbol de análisis sintáctico</figcaption>
+                </figure>
+            </div>
+            <a href="http://cgosorio.es/BURGRAM/index1df4.html?Los_algoritmos_de_an%E1lisis%0Asint%E1ctico:%C1rbol_de_an%E1lisis%0Asint%E1ctico">Página original de la imagen</a>
+            <h4>Relación con el Análisis Léxico y Semántico</h4>
+            <p>El analizador sintáctico trabaja en estrecha colaboración con el analizador léxico y el analizador semántico. 
+            Mientras que el analizador léxico divide el código fuente en tokens, el analizador sintáctico los organiza en una estructura
+            coherente según las reglas gramaticales. Además, el analizador semántico, que sigue al análisis sintáctico, verifica la 
+            coherencia y el significado del código, detectando errores que van más allá de la sintaxis.
+            </p>
+            <h4>Técnicas de Análisis Sintáctico</h4>
+            <p>Existen diversas técnicas de análisis sintáctico, como el análisis descendente, ascendente y predictivo. 
+            Cada técnica presenta ventajas y desafíos específicos en términos de eficiencia y flexibilidad. 
+            Algunas gramáticas pueden requerir técnicas más avanzadas, como el análisis LR o LL, para manejar ambigüedades y construcciones más complejas. 
+            </p>
+            <h4>Optimización y Eficiencia</h4>
+            <p>El rendimiento del analizador sintáctico es esencial para la velocidad y la precisión del proceso de compilación. 
+            El uso de tablas de análisis, como las tablas de análisis LL(1) o LR(1), y la implementación eficiente de algoritmos de análisis son estrategias para optimizar la velocidad del parser.   
+            </p>
+            <h4>Conclusión</h4>
+            <p>El analizador sintáctico, aunque profundiza en las estructuras más complejas del código fuente, es un componente esencial para la 
+            traducción exitosa de programas de alto nivel a instrucciones ejecutables. Su capacidad para validar la estructura gramatical del 
+            código y crear una representación jerárquica del programa influye directamente en la calidad y la confiabilidad del software 
+            resultante. Mediante un entendimiento sólido del analizador sintáctico y su relación con los demás componentes del compilador, 
+            los desarrolladores pueden mejorar la eficiencia y la robustez de sus sistemas de traducción, allanando el camino hacia la creación 
+            de software más poderoso y funcional.
+            </p>
+        </section>
+        
+        <!-- Analizador Semántico -->
+        <section id="semantic-analyzer">
+            <h3>Analizador semántico</h3>
+            <p>El analizador semántico realiza verificaciones más profundas, asegurando que el código tenga sentido en términos de significado.
+            Dentro del complejo universo de los compiladores, el analizador semántico emerge como el vigilante que va más allá de la 
+            estructura superficial, explorando la profundidad y significado del código fuente. En esta travesía hacia la comprensión más
+            profunda, exploraremos el rol esencial del analizador semántico, su función vital en el proceso de compilación y su 
+            interconexión con los análisis léxico y sintáctico.
+            </p>
+            <!-- Detalles adicionales sobre el analizador semántico -->
+            <h4>Desentrañando el Analizador Semántico</h4>
+            <p>El analizador semántico es el encargado de analizar la coherencia y significado del código fuente una vez que se ha completado el 
+            análisis léxico y sintáctico. Su objetivo es detectar errores semánticos que no pueden ser capturados por las fases anteriores
+            y garantizar que el programa tenga un comportamiento válido y lógico.
+            </p>
+            <h4>Funcionamiento Interno y Verificación Semántica</h4>
+            <p>La verificación semántica se basa en reglas que van más allá de la sintaxis gramatical del lenguaje. 
+            Estas reglas abordan la correcta utilización de variables, tipos de datos, operaciones y relaciones entre elementos del 
+            programa. El analizador semántico verifica la coherencia de estas reglas para prevenir resultados indeseados o inesperados 
+            en el programa final. 
+            </p>
+            <div class="image-container">
+                <figure>
+                    <img src="analizadorSemantico.jpg" alt="ArbolSemantica"  class="centered-image">
+                    <figcaption>Árbol de análisis semántico</figcaption>
+                </figure>
+            </div>
+            <a href="https://www.tutorialspoint.com/compiler_design/compiler_design_semantic_analysis.htm">Página original de la imagen</a>
+            <h4>Importancia en el Proceso de Compilación</h4>
+            <p>El analizador semántico marca el paso del análisis superficial al profundo en el proceso de compilación. A medida que el 
+            analizador léxico divide el código en unidades léxicas y el analizador sintáctico establece su estructura, el analizador
+            semántico revela su esencia y asegura que el significado y las intenciones del programador se mantengan intactos.
+            </p>
+            <h4>Relación con el Análisis Léxico y Sintáctico</h4>
+            <p>El analizador semántico trabaja en sinergia con las fases anteriores de análisis léxico y sintáctico. 
+            Donde el análisis léxico identifica los componentes básicos y el análisis sintáctico establece la estructura jerárquica,
+            el analizador semántico profundiza en la comprensión del significado y la lógica interna de las construcciones del lenguaje.   
+            </p>
+            <h4>Errores Semánticos Detectados</h4>
+            <p>El analizador semántico identifica una variedad de errores, como la asignación de tipos incorrectos a variables, el uso 
+            de variables no declaradas, operaciones incompatibles entre tipos de datos y más. También verifica reglas de alcance y 
+            duración de variables, así como la correcta utilización de funciones y procedimientos.     
+            </p>
+            <h4>Optimización y Eficiencia</h4>
+            <p>Aunque la optimización no es el enfoque principal del analizador semántico, ciertas optimizaciones pueden ocurrir en 
+            esta fase. Por ejemplo, se pueden detectar variables que no se utilizan y eliminarlas, lo que puede reducir el uso de 
+            memoria y mejorar el rendimiento del programa.  
+            </p>
+            <h4>Conclusión</h4>
+            <p>El analizador semántico, como el intérprete de los deseos y lógica del programador, desempeña un papel crítico en la 
+            producción de software confiable y funcional. Al explorar y entender la verificación semántica, los desarrolladores pueden 
+            comprender cómo las decisiones en el código fuente afectan el comportamiento del programa y cómo se puede garantizar que las
+            intenciones del programador se manifiesten en la ejecución.   
+            </p>
+        </section>
+        
+        <!-- Generador de Código Intermedio -->
+        <section id="intermediate-code-generator">
+            <h3>Generador de código intermedio</h3>
+            <p>El generador de código intermedio crea una representación intermedia del programa que facilita las optimizaciones y la generación de código final.
+            En el complejo mundo de la compilación, el generador de código intermedio se erige como el alquimista que traduce las 
+            intenciones del programador en un lenguaje intermedio comprensible por la máquina. En esta exploración profunda, 
+            descubriremos la esencia del generador de código intermedio, su función esencial en el proceso de traducción y su relación 
+            con las fases previas y posteriores del compilador.
+            </p>
+            <!-- Detalles adicionales sobre el generador de código intermedio -->
+            <h4>El Lenguaje Intermedio: Puente entre Abstracción y Ejecución</h4>
+            <p>El generador de código intermedio es una etapa crucial en el proceso de compilación. Su misión es convertir el código 
+            fuente de alto nivel, expresado en un lenguaje de programación humano-legible, en un lenguaje intermedio más cercano a 
+            las operaciones de bajo nivel que la máquina puede entender. Este lenguaje intermedio sirve como paso intermedio entre el código 
+            fuente y el código de máquina final.</p>
+            <h4>Funcionamento Interno y Representación Intermedia</h4>
+            <p>La representación intermedia es una estructura de datos que captura la esencia semántica del programa sin adentrarse en detalles de 
+            implementación específicos de la arquitectura de la máquina objetivo. Puede tomar la forma de un árbol de sintaxis abstracta (AST), 
+            una representación de tres direcciones (TAC) o un código de tres direcciones (Three-Address Code).
+            </p>
+            <div class="image-container">
+                <figure>
+                    <img src="codigoIntermedio.jpg" alt="codigoIntermedio"  class="centered-image">
+                    <figcaption>Transformación a código Intermedio</figcaption>
+                </figure>
+            </div>
+            <a href="http://compiladorsistemas.blogspot.com/2010/11/generacion-de-codigo-intermedio.html">Página original de la imagen</a>
+            <h4>Importancia en el Proceso de Compilación</h4>
+            <p>El generador de código intermedio actúa como el nexo entre la comprensión humana y la ejecución de la máquina. Permite que las 
+            optimizaciones y análisis posteriores se realicen en un contexto más manejable y abstracto antes de la generación del código de máquina
+            final. Además, posibilita la portabilidad del compilador, ya que solo es necesario modificar el generador de código intermedio para 
+            admitir diferentes arquitecturas de destino.
+            </p>
+            <h4>Relación con las Fases Previas y Posteriores</h4>
+            <p>El generador de código intermedio opera después del análisis semántico y antes de la optimización y generación de código de máquina.
+            Toma los resultados del análisis semántico y los convierte en una representación intermedia coherente. Luego, esta representación 
+            intermedia se somete a optimizaciones antes de ser traducida al código de máquina final.
+            </p>
+            <h4>Optimización en la Representación Intermedia</h4>
+            <p>Aunque las optimizaciones primarias ocurren en etapas posteriores, el generador de código intermedio puede aplicar optimizaciones 
+            básicas, como la eliminación de cálculos redundantes o la simplificación de expresiones constantes. Sin embargo, las optimizaciones
+            más avanzadas se llevan a cabo en las fases de optimización específicas.
+            </p>
+            <h4>Conclusión</h4>
+            <p>El generador de código intermedio es un pilar crucial en el proceso de compilación, actuando como un intérprete entre el mundo de los 
+            humanos y el de las máquinas. Al generar una representación intermedia eficiente y coherente, facilita las etapas posteriores de 
+            optimización y generación de código de máquina. La comprensión de cómo se crea y utiliza esta representación intermedia es esencial para 
+            los desarrolladores y entusiastas de la programación que buscan construir compiladores más eficientes y portables.
+            </p>
+            
+        </section>
+        
+        <!-- Optimizador de Código -->
+        <section id="code-optimizer">
+            <h3>Optimizador de código</h3>
+            <div class="image-container">
+                <figure>
+                    <img src="optimizacionIcono.png" alt="codigoIcono"  class="centered-image" width="100" height="100">
+                </figure>
+            </div>
+            <p>El optimizador de código realiza transformaciones en el código intermedio para mejorar su eficiencia y rendimiento.
+            Dentro del intrincado ecosistema de los compiladores, el optimizador de código emerge como el artífice que transforma el código fuente 
+            en una obra maestra de eficiencia. En esta exploración profunda, desentrañaremos la esencia del optimizador de código, su función vital
+            en el proceso de compilación y las estrategias que utiliza para refinar y pulir el rendimiento del software resultante.
+            </p>
+            <!-- Detalles adicionales sobre el optimizador de código -->
+            <h4>El Arte de la Optimización de Código</h4>
+            <p>El optimizador de código es una etapa crítica en el proceso de compilación que busca mejorar la eficiencia del programa resultante. 
+            Su misión es transformar el código generado por el generador de código intermedio en un código de máquina que aproveche al máximo los 
+            recursos de la arquitectura objetivo, minimizando el uso de recursos y maximizando la velocidad de ejecución.
+            </p>
+            <h4>Funcionamiento Interno y Transformaciones</h4>
+            <p>El optimizador de código aplica una serie de transformaciones al código intermedio o al código de máquina, manteniendo el comportamiento del 
+            programa pero mejorando su rendimiento. Estas transformaciones pueden incluir la eliminación de código muerto (instrucciones no alcanzables), 
+            la simplificación de expresiones, la reorganización de instrucciones para explotar las características de la caché y la reducción de 
+            operaciones redundantes.
+            <div class="image-container">
+                <figure>
+                    <img src="dead_code.jpg" alt="codigoIcono"  class="centered-image">
+                    <figcaption>Optimización de código</figcaption>
+                </figure>
+            </div>
+            </p>
+            <h4>Importancia en el Proceso de Compilación</h4>
+            <p>La fase de optimización de código es esencial para producir software de alta calidad y rendimiento. Aunque los programadores pueden 
+            escribir código funcional, el optimizador se encarga de transformarlo en código eficiente y rápido, aprovechando al máximo las 
+            características de la arquitectura de la máquina objetivo.
+            </p>
+            <h4>Estrategias de Optimización</h4>
+            <p>Los optimizadores de código utilizan una variedad de estrategias para lograr mejoras en el rendimiento. Estas estrategias pueden ser
+            desde optimizaciones a nivel de expresiones y bloques de código hasta optimizaciones de mayor alcance que involucran reordenamiento de 
+            bucles y eliminación de instrucciones redundantes. Las optimizaciones también pueden ser específicas de la arquitectura, como la 
+            vectorización para aprovechar las extensiones SIMD (Single Instruction, Multiple Data).
+            </p>
+            <h4>Medición y Evaluación de Impacto</h4>
+            <p>Las mejoras logradas por el optimizador de código pueden ser evaluadas a través de pruebas de rendimiento y análisis comparativos. 
+            Herramientas de perfilado y análisis de rendimiento permiten identificar las partes del código que consumen más tiempo y recursos, 
+            ayudando a dirigir las optimizaciones hacia las áreas más críticas.
+            </p>
+            <h4>Conclusión</h4>
+            <p>El optimizador de código en los compiladores es un componente vital que transforma el software en una versión más rápida, eficiente 
+            y adaptable a la arquitectura de la máquina objetivo. Su capacidad para aplicar transformaciones sutiles pero impactantes es 
+            esencial para cumplir con los estándares de rendimiento de la actualidad. Los programadores y desarrolladores que comprenden la 
+            importancia del optimizador de código pueden crear software más veloz y efectivo, contribuyendo al éxito y la excelencia en la 
+            industria de la programación.
+            </p>
+        </section>
+        
+        <!-- Generador de Código Objeto -->
+        <section id="object-code-generator">
+            <h3>Generador de código objeto</h3>
+            <p>El generador de código objeto traduce el código intermedio optimizado en código máquina específico para una arquitectura de hardware.
+            En el intrigante mundo de los compiladores, el generador de código objeto se alza como el maestro artesano que traduce el código 
+            intermedio en instrucciones comprensibles por la máquina. En este viaje al corazón de la generación de código, exploraremos la 
+            función crucial del generador de código objeto, su papel en el proceso de compilación y su influencia en la materialización de 
+            software funcional.  
+            </p>
+            <h4>El Puente hacia la Ejecución</h4>
+            <p>El generador de código objeto es la etapa que transforma la representación intermedia en código de máquina, que la computadora 
+            puede comprender y ejecutar directamente. Este proceso implica la traducción de las abstracciones de alto nivel presentes en el código 
+            intermedio en instrucciones específicas de la arquitectura de la máquina objetivo.
+            </p>
+            <h4>Funcionamiento Interno y Transformación</h4>
+            <p>El generador de código objeto emplea tablas y reglas para mapear las construcciones del código intermedio a las instrucciones 
+            específicas del conjunto de instrucciones de la máquina objetivo. En esta etapa, se determina cómo se almacenan los valores en 
+            memoria, se manipulan los registros de la CPU y se gestionan los saltos y las llamadas a funciones.
+            </p>
+            <h4>Importancia en el Proceso de Compilación</h4>
+            <p>El generador de código objeto actúa como el vínculo esencial entre el mundo de la programación y la ejecución física de las 
+            instrucciones por parte de la máquina. Transforma las abstracciones que comprende el programador en un lenguaje que la computadora 
+            puede interpretar y ejecutar, haciendo realidad las intenciones del programador.
+            </p>
+            <div class="image-container">
+                <figure>
+                    <img src="compiladorII.gif" alt="codigoMaquina"  class="centered-image">
+                    <figcaption>Del código de alto nivel a código binario</figcaption>
+                </figure>
+            </div>
+            <a href="http://unipacifico.50webs.com/EXPOSICION/compilador.html">Página oficial de la imagen</a>
+            <h4>Relación con Etapas Anteriores y Posteriores</h4>
+            <p>El generador de código objeto sigue a la fase de optimización, donde se aplican mejoras al código intermedio. 
+            A medida que el generador de código objeto traduce la representación intermedia en código de máquina, prepara el terreno para la fase 
+            de ensamblado, donde el código objeto se ensambla en un archivo ejecutable.
+            </p>
+            <h4>Optimización y Eficiencia</h4>
+            <p>Aunque la optimización principal se lleva a cabo en etapas anteriores, el generador de código objeto también puede aplicar ciertas 
+            optimizaciones específicas de la arquitectura de destino. Esto incluye la utilización eficiente de registros, el aprovechamiento de 
+            instrucciones específicas de la CPU y la reducción de accesos innecesarios a memoria.
+            </p>
+            <h4>Conclusión</h4>
+            <p>El generador de código objeto es el puente final entre la mente del programador y la ejecución de la máquina. 
+            Su habilidad para traducir las abstracciones del código intermedio en instrucciones de bajo nivel que la máquina pueda comprender es
+            esencial para la creación de software funcional y efectivo. Al entender cómo funciona el generador de código objeto, los 
+            desarrolladores pueden apreciar el proceso completo de compilación y cómo sus decisiones de programación se materializan en software 
+            ejecutable.
+            </p>
+            <!-- Detalles adicionales sobre el generador de código objeto -->
+        </section> 
+        <div class="image-container">
+            <figure>
+                <img src="conclusion.gif" alt="codigoResumen"  class="centered-image">
+                <figcaption>Proceso total del compilador</figcaption>
+            </figure>
+        </div>
+        <a href="http://unipacifico.50webs.com/EXPOSICION/compilador.html">Página oficial de la imagen</a>
+    </main>
+    <footer>
+        <p>&copy; 2023 Jorman Chuquer, Jean Cotera, Juan Jima. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
